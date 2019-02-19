@@ -19,7 +19,6 @@
         });
     });
 
-
     describe('Throws error for non-array values', function() {
         const testData = [
             {array: null, value: 1},
@@ -45,6 +44,8 @@ describe ('Pop', function() {
             {arrayItems: [1,2], expected: [1]},
             {arrayItems: [1,2,3], expected: [1,2]},
             {arrayItems: [null,1], expected: [null]},
+            {arrayItems: [undefined,1], expected: [undefined]},
+            {arrayItems: ['null',1], expected: ['null']}
         ];
 
         testData.forEach(data => {
@@ -74,6 +75,7 @@ describe ('Pop', function() {
     });
 });
 
+//EDIT
 describe ('Shift', function() {
     describe('Remove first element of array', function() {
         const testData = [

@@ -15,7 +15,7 @@
                 const actual = list.toArray();
 
                 assert.deepEqual(actual, expected);
-            })
+            });
         });
     });
 

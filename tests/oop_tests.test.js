@@ -1,15 +1,5 @@
-//New object of Alist.
-var alist = new Alist();
-
-//Return new array after push method.
-function Push(array, value) {
-    alist.arr = array;
-    alist.push(value);
-    return alist.arr;
-}
-
-describe ('Push', function() {
-    describe('push', function() {
+    describe ('Push', function() {
+    describe('Add element to the array end', function() {
         const testData = [
             {elementsToAdd: [1], expected: [1]},
             {elementsToAdd: [1, 2], expected: [1, 2]},
@@ -22,7 +12,7 @@ describe ('Push', function() {
             it(`should add elements ${elementsToAdd}`, function() {
                 elementsToAdd.forEach(item => list.push(item));
 
-                const actual = list.toArray();ะด
+                const actual = list.toArray();
 
                 assert.deepEqual(actual, expected);
             })
@@ -51,22 +41,23 @@ describe ('Push', function() {
 describe ('Pop', function() {
     describe('Remove last element of array', function() {
         const testData = [
-            {array: [1], expected: []},
-            {array: [1,2,3], expected: [1,2]},
-            {array: [1,2,'3'], expected: [1,2]},
-            {array: [2,2], expected: [2]},
-            {array: [null,null,null], expected: [null,null]},
-            {array: [null,null,null], expected: [null,null]},
-            {array: [undefined,undefined], expected: [undefined]}
+            {arrayItems: [1], expected: []},
+            {arrayItems: [1,2], expected: [1]},
+            {arrayItems: [1,2,3], expected: [1,2]},
+            {arrayItems: [null,1], expected: [null]},
         ];
 
-        testData.forEach(function(data) {
-            const {array, expected} = data;
+        testData.forEach(data => {
+            const {arrayItems, expected} = data;
+            const list = new Alist();
 
-            it(`Should return ${expected} array`, function() {
-                const actual = Pop(array);
+            it(`Should remove last element from array`, function() {
+                arrayItems.forEach(item => list.push(item));
 
-                assert.deepEqual(actual, expected)
+                list.pop();
+                const actual = list.toArray();
+
+                assert.deepEqual(actual, expected);
             });
         });
     });

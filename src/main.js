@@ -122,7 +122,7 @@ function Alist() {
 
     this.toArray = function() {
         return [...array];
-    }
+    };
 
     this.toString = function() {
         return `[${String(array)}]`;

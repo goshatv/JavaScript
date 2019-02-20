@@ -3,19 +3,22 @@
         const testData = [
             {elementsToAdd: [1], expected: [1]},
             {elementsToAdd: [1, 2], expected: [1, 2]},
+            {elementsToAdd: [1, '2'], expected: [1, '2']},
         ];
 
         testData.forEach(data => {
             const { elementsToAdd, expected } = data;
-            const list = new Alist();
+            const list = new ArrayList();
 
             it(`should add elements ${elementsToAdd}`, function() {
                 elementsToAdd.forEach(item => list.push(item));
 
-                const actual = list.toArray();
+                const actual = list.array;
 
                 assert.deepEqual(actual, expected);
             });
+
+            list.array = [];
         });
     });
 
@@ -40,71 +43,87 @@
 describe ('Pop', function() {
     describe('Remove last element of array', function() {
         const testData = [
-            {arrayItems: [1], expected: []},
-            {arrayItems: [1,2], expected: [1]},
-            {arrayItems: [1,2,3], expected: [1,2]},
-            {arrayItems: [null,1], expected: [null]},
-            {arrayItems: [undefined,1], expected: [undefined]},
-            {arrayItems: ['null',1], expected: ['null']}
+            {elementsToAdd: [1], expected: []},
+            {elementsToAdd: [1, 2], expected: [1]},
+            {elementsToAdd: [1, 2, 3], expected: [1, 2]},
+            {elementsToAdd: [1, null, '3', 4], expected: [1, null, '3']}
         ];
 
         testData.forEach(data => {
-            const {arrayItems, expected} = data;
-            const list = new Alist();
+            const { elementsToAdd, expected } = data;
+            const list = new ArrayList();
 
-            it(`Should remove last element from array`, function() {
-                arrayItems.forEach(item => list.push(item));
+            it(`should add elements ${elementsToAdd}`, function() {
+                elementsToAdd.forEach(item => list.push(item));
 
                 list.pop();
-                const actual = list.toArray();
+
+                const actual = list.array;
 
                 assert.deepEqual(actual, expected);
             });
+
+            list.array = [];
         });
     });
-    describe('Throws error for non-array values', function() {
-        const testData = [null, undefined, 1, 'string', []];
 
-        testData.forEach(function(Pop) {
+    describe('Throws error for non-array values', function() {
+        const testData = [
+            {array: null, value: 1},
+            {array: undefined, value: 1},
+            {array: 1, value: 1},
+            {array: 'string', value: 1}
+        ];
+
+        testData.forEach(function(Push) {
             it(`If input data is not array, throw error`, function() {
                 assert.throw(function() {
-                    Pop(array);
+                    Push(array, value);
                 });
             });
         });
     });
 });
 
-//EDIT
 describe ('Shift', function() {
     describe('Remove first element of array', function() {
         const testData = [
-            {array: [1], expected: []},
-            {array: [1,2,3], expected: [2,3]},
-            {array: [1,2,'3'], expected: [2,'3']},
-            {array: [2,2], expected: [2]},
-            {array: [12,2,'www',null], expected: [2,'www',null]},
-            {array: [null,null,null], expected: [null,null]},
-            {array: [undefined,1,2,3], expected: [1,2,3]}
+            {elementsToAdd: [1], expected: []},
+            {elementsToAdd: [1, 2], expected: [2]},
+            {elementsToAdd: [1, 2, 3], expected: [2, 3]},
+            {elementsToAdd: [1, null, '3', 4], expected: [null, '3', 4]}
         ];
 
-        testData.forEach(function(data) {
-            const {array, expected} = data;
+        testData.forEach(data => {
+            const { elementsToAdd, expected } = data;
+            const list = new ArrayList();
 
-            it(`Should return ${expected} array`, function() {
-                const actual = Shift(array);
+            it(`should add elements ${elementsToAdd}`, function() {
+                elementsToAdd.forEach(item => list.push(item));
 
-                assert.deepEqual(actual, expected)
+                list.shift();
+
+                const actual = list.array;
+
+                assert.deepEqual(actual, expected);
             });
+
+            list.array = [];
         });
     });
-    describe('Throws error for non-array values', function() {
-        const testData = [null, undefined, 1, 'string', []];
 
-        testData.forEach(function(Shift) {
+    describe('Throws error for non-array values', function() {
+        const testData = [
+            {array: null, value: 1},
+            {array: undefined, value: 1},
+            {array: 1, value: 1},
+            {array: 'string', value: 1}
+        ];
+
+        testData.forEach(function(Push) {
             it(`If input data is not array, throw error`, function() {
                 assert.throw(function() {
-                    Shift(array);
+                    Push(array, value);
                 });
             });
         });
@@ -112,26 +131,30 @@ describe ('Shift', function() {
 });
 
 describe ('Unshift', function() {
-    describe('Add new element to start of array', function() {
+    describe('Add element to the array start', function() {
         const testData = [
-            {array: [], value: 1, expected: [1]},
-            {array: [2], value: null, expected: [null,2]},
-            {array: [1], value: undefined, expected: [undefined,1]},
-            {array: ['1', '2'], value: '0', expected: ['0','1','2']},
-            {array: [1,2,3], value: '1', expected: ['1',1,2,3]},
-            {array: [1,2,3], value: null, expected: [null,1,2,3]},
+            {elementsToAdd: [2], value: 1, expected: [1,2]},
+            {elementsToAdd: [], value: 2, expected: [2]},
+            {elementsToAdd: [1, '2'], value: null, expected: [null, 1, '2']},
         ];
 
-        testData.forEach(function(data) {
-            const {array, value, expected} = data;
+        testData.forEach(data => {
+            const { elementsToAdd, value, expected } = data;
+            const list = new ArrayList();
 
-            it(`Should return ${expected} with value ${value}`, function() {
-                const actual = Unshift(array, value);
+            it(`should add elements ${elementsToAdd}`, function() {
+                elementsToAdd.forEach(item => list.push(item));
 
-                assert.deepEqual(actual, expected)
+                list.unshift(value);
+                const actual = list.array;
+
+                assert.deepEqual(actual, expected);
             });
+
+            list.array = [];
         });
     });
+
     describe('Throws error for non-array values', function() {
         const testData = [
             {array: null, value: 1},
@@ -140,10 +163,10 @@ describe ('Unshift', function() {
             {array: 'string', value: 1}
         ];
 
-        testData.forEach(function(Unshift) {
+        testData.forEach(function(Push) {
             it(`If input data is not array, throw error`, function() {
                 assert.throw(function() {
-                    Unshift(array, value);
+                    Push(array, value);
                 });
             });
         });
@@ -151,27 +174,33 @@ describe ('Unshift', function() {
 });
 
 describe ('Remove', function() {
-    describe('Remove needed element by index', function() {
+    describe('Remove element of the array by index', function() {
         const testData = [
-            {array: [0], value: 0, expected: []},
-            {array: [0,1], value: 0, expected: [1]},
-            {array: [0,1,2], value: 2, expected: [0,1]},
-            {array: [0,1,2], value: 0, expected: [1,2]},
-            {array: [0,1,2,3,4], value: 3, expected: [0,1,2,4]},
-            {array: [0,1,2,3,4], value: 4, expected: [0,1,2,3]}
+            {elementsToAdd: [2], value: 0, expected: []},
+            {elementsToAdd: [1,2,3], value: 2, expected: [1,2]},
+            {elementsToAdd: [1, '2',3,null], value: 1, expected: [1, 3, null]},
+            {elementsToAdd: [1, '2',3,undefined], value: 3, expected: [1, '2', 3]},
+
         ];
 
-        testData.forEach(function(data) {
-            const {array, value, expected} = data;
+        testData.forEach(data => {
+            const { elementsToAdd, value, expected } = data;
+            const list = new ArrayList();
 
-            it(`Should return ${expected} with value ${value}`, function() {
-                const actual = Remove(array, value);
+            it(`should add elements ${elementsToAdd}`, function() {
+                elementsToAdd.forEach(item => list.push(item));
 
-                assert.deepEqual(actual, expected)
+                list.remove(value);
+                const actual = list.array;
+
+                assert.deepEqual(actual, expected);
             });
+
+            list.array = [];
         });
     });
-    describe('Throws exception if index misses in the array range ', function() {
+
+    describe('Throws error for non-array values', function() {
         const testData = [
             {array: null, value: 1},
             {array: undefined, value: 1},
@@ -179,83 +208,98 @@ describe ('Remove', function() {
             {array: 'string', value: 1}
         ];
 
-        testData.forEach(function(Delete) {
-            it(`If input index is missed in the array range, throw exception`, function() {
+        testData.forEach(function(Push) {
+            it(`If input data is not array, throw error`, function() {
                 assert.throw(function() {
-                    Delete(array, value);
+                    Push(array, value);
                 });
             });
         });
     });
 });
 
-describe ('IsArray', function() {
-    describe('Returns boolean is the value an array', function() {
-        const testData = [
-            {array: [], expected: true},
-            {array: [1], expected: true},
-            {array: ['2'], expected: true},
-            {array: [{a:1}], expected: true},
-            {array: 'qwe123', expected: false},
-            {array: 123, expected: false},
-            {array: function() {}, expected: false},
-            {array: [123, 'gjh', {a:6, b:9}], expected: true}
-        ];
+describe('isArray', function() {
+    const testData = [
+        {value: 1, expected: false},
+        {value: [], expected: true},
+        {value: [{a:1,b:2}], expected: true},
+        {value: {asd: 123}, expected: false},
+        {value: '[string]', expected: false}
+    ];
 
-        testData.forEach(function(data) {
-            const {array, expected} = data;
+    testData.forEach(function(data) {
+        const list = new ArrayList();
+        const {value, expected} = data;
+        it(`Should return true/false if value array/notArray`, function() {
+            list.array = value;
+            const actual = list.isArray();
 
-            it(`Should return ${expected}`, function() {
-                const actual = IsArray(array);
-
-                assert.deepEqual(actual, expected)
-            });
+            assert.deepEqual(actual, expected);
         });
-    });
-    describe('Throws error for non-array values', function() {
-        const testData = [null, undefined, 1, 'string', []];
-
-        testData.forEach(function(Shift) {
-            it(`If input data is not array, throw error`, function() {
-                assert.throw(function() {
-                    IsArray(array);
-                });
-            });
-        });
+        list.array = [];
     });
 });
 
-describe ('Length', function() {
-    describe('Returns length of array', function() {
-        const testData = [
-            {array: [], expected: 0},
-            {array: [1], expected: 1},
-            {array: [1,2], expected: 2},
-            {array: [1,2,3], expected: 3},
-            {array: [1,2,3,4,5,6,7], expected: 7},
-            {array: [1,2,3,4,5,6,7,'1',{a:1}], expected: 9},
-            {array: [1,2,3,4,5,7], expected: 6},
-        ];
+describe('lengthArray', function() {
+    const testData = [
+        {array: [], expected: 0},
+        {array: [1], expected: 1},
+        {array: [1,2], expected: 2},
+        {array: [1,2,3], expected: 3},
+        {array: [1,2,3,4], expected: 4},
+    ];
 
-        testData.forEach(function(data) {
-            const {array, expected} = data;
+    testData.forEach(function(data) {
+        const list = new ArrayList();
+        const {array, expected} = data;
+        it(`Should return length ${expected} of an array ${array}`, function() {
+            list.array = array;
+            const actual = list.lengthArray();
 
-            it(`Should return ${expected}`, function() {
-                const actual = Length(array);
-
-                assert.deepEqual(actual, expected)
-            });
+            assert.deepEqual(actual, expected);
         });
+        list.array = [];
     });
-    describe('Throws error for non-array values', function() {
-        const testData = [null, undefined, 1, 'string', []];
+});
 
-        testData.forEach(function(Length) {
-            it(`If input data is not array, throw error`, function() {
-                assert.throw(function() {
-                    Length(array);
-                });
-            });
+describe('toString', function() {
+    const testData = [
+        {array: [], expected: "[]"},
+        {array: [1,2,3], expected: "[1,2,3]"},
+        {array: [{a:1}], expected: "[[object Object]]"}
+
+    ];
+
+    testData.forEach(function(data) {
+        const list = new ArrayList2();
+        const {array, expected} = data;
+        it(`Should return array ${array} in string`, function() {
+            list.array = array;
+            const actual = list.toString();
+
+            assert.deepEqual(actual, expected);
         });
+        list.array = [];
+    });
+});
+
+describe('sort', function() {
+    const testData = [
+        {array: [], expected: []},
+        {array: [1,2], expected: [1,2]},
+        {array: [2,1], expected: [1,2]},
+        {array: [5,0,1,2], expected: [0,1,2,5]},
+    ];
+
+    testData.forEach(function(data) {
+        const list = new ArrayList2();
+        const {array, expected} = data;
+        it(`Should return sorted array ${array}`, function() {
+            list.array = array;
+            const actual = list.sort();
+
+            assert.deepEqual(actual, expected);
+        });
+        list.array = [];
     });
 });

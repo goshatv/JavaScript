@@ -1,3 +1,67 @@
+//PROTOTYPE:
+
+function ListFirstProto() {}
+
+ListFirstProto.prototype.array = [];
+ListFirstProto.prototype.pop = function() {}
+ListFirstProto.prototype.push = function() {}
+ListFirstProto.prototype.shift = function() {}
+ListFirstProto.prototype.unshift = function() {}
+ListFirstProto.prototype.remove = function() {}
+ListFirstProto.prototype.isArray = function() {}
+ListFirstProto.prototype.lengthArray = function() {}
+ListFirstProto.prototype.toString = function() {}
+
+function AList() {
+    ListFirstProto.apply(this);
+}
+
+AList.prototype = Object.create(ListFirstProto.prototype);
+AList.prototype.constructor = AList;
+
+AList.prototype.pop = function() {
+    
+    this.array.length -= 1;
+
+    return this;
+}
+
+AList.prototype.push = function() {
+
+    array[array.length] = value;
+
+    return this;
+}
+
+AList.prototype.shift = function() {
+
+    for(var i = 0; i < array.length; i++)
+    {
+        array[i] = array[i+1];
+    }
+
+    array.length -= 1;
+
+    return this;
+}
+
+AList.prototype.unshift = function() {
+
+    let tmpArray = [];
+
+    for (var i = 0; i < array.length; i++)
+    {
+        tmpArray[0] = 0;
+        tmpArray[i+1] = array[i];
+    }
+
+    tmpArray[0] = value;
+    array = tmpArray;
+    return this;
+}
+
+//Как-то по своему
+
 function ListFirst() {
 
     this.pop = function() {};
@@ -133,64 +197,3 @@ function ListSecond() {
 var a = new ListSecond();
 console.log(a);
 
-//PROTOTYPE:
-
-function ListFirstProto() {}
-
-ListFirstProto.prototype.array = [];
-ListFirstProto.prototype.pop = function() {}
-ListFirstProto.prototype.push = function() {}
-ListFirstProto.prototype.shift = function() {}
-ListFirstProto.prototype.unshift = function() {}
-ListFirstProto.prototype.remove = function() {}
-ListFirstProto.prototype.isArray = function() {}
-ListFirstProto.prototype.lengthArray = function() {}
-ListFirstProto.prototype.toString = function() {}
-
-function AList() {
-    ListFirstProto.apply(this);
-}
-
-AList.prototype = Object.create(ListFirstProto.prototype);
-AList.prototype.constructor = AList;
-
-AList.prototype.pop = function() {
-    
-    this.array.length -= 1;
-
-    return this;
-}
-
-AList.prototype.push = function() {
-
-    array[array.length] = value;
-
-    return this;
-}
-
-AList.prototype.shift = function() {
-
-    for(var i = 0; i < array.length; i++)
-    {
-        array[i] = array[i+1];
-    }
-
-    array.length -= 1;
-
-    return this;
-}
-
-AList.prototype.unshift = function() {
-
-    let tmpArray = [];
-
-    for (var i = 0; i < array.length; i++)
-    {
-        tmpArray[0] = 0;
-        tmpArray[i+1] = array[i];
-    }
-
-    tmpArray[0] = value;
-    array = tmpArray;
-    return this;
-}

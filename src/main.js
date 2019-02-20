@@ -1,199 +1,207 @@
-//PROTOTYPE:
+// 1. Создать "интерфейс" (класс) с 8 методами ListFirst
+function ListFirst() {}
 
-function ListFirstProto() {}
+ListFirst.prototype.array = [];
+ListFirst.prototype.pop = function() {};
+ListFirst.prototype.push = function() {};
+ListFirst.prototype.shift = function() {};
+ListFirst.prototype.unshift = function() {};
+ListFirst.prototype.remove = function() {};
+ListFirst.prototype.isArray = function() {};
+ListFirst.prototype.lengthArray = function() {};
 
-ListFirstProto.prototype.array = [];
-ListFirstProto.prototype.pop = function() {}
-ListFirstProto.prototype.push = function() {}
-ListFirstProto.prototype.shift = function() {}
-ListFirstProto.prototype.unshift = function() {}
-ListFirstProto.prototype.remove = function() {}
-ListFirstProto.prototype.isArray = function() {}
-ListFirstProto.prototype.lengthArray = function() {}
-ListFirstProto.prototype.toString = function() {}
-
-function AList() {
-    ListFirstProto.apply(this);
+// 2. Реализовать ArrayList & LinkedList на основании ListFirst
+function ArrayList() {
+    ListFirst.apply(this);
 }
 
-AList.prototype = Object.create(ListFirstProto.prototype);
-AList.prototype.constructor = AList;
+ArrayList.prototype = Object.create(ListFirst.prototype);
+ArrayList.prototype.constructor = ArrayList;
 
-AList.prototype.pop = function() {
+ArrayList.prototype.pop = function() {
     
     this.array.length -= 1;
 
     return this;
 }
 
-AList.prototype.push = function() {
+ArrayList.prototype.push = function(value) {
 
-    array[array.length] = value;
+    this.array[this.array.length] = value;
 
     return this;
 }
 
-AList.prototype.shift = function() {
+ArrayList.prototype.shift = function() {
 
-    for(var i = 0; i < array.length; i++)
+    for(var i = 0; i < this.array.length; i++)
     {
-        array[i] = array[i+1];
+        this.array[i] = this.array[i+1];
     }
 
-    array.length -= 1;
+    this.array.length -= 1;
 
     return this;
 }
 
-AList.prototype.unshift = function() {
-
+ArrayList.prototype.unshift = function(value) {
+    
     let tmpArray = [];
 
-    for (var i = 0; i < array.length; i++)
+    for (var i = 0; i < this.array.length; i++)
     {
         tmpArray[0] = 0;
-        tmpArray[i+1] = array[i];
+        tmpArray[i+1] = this.array[i];
     }
 
     tmpArray[0] = value;
-    array = tmpArray;
+    this.array = tmpArray;
     return this;
 }
 
-//Как-то по своему
+ArrayList.prototype.removeTest = function(value) {
 
-function ListFirst() {
+    let tempArray = [];
+    let isRemoved = false;
 
-    this.pop = function() {};
+    if (value < 0 || value > this.array.length) {
+        throw Error('Value should be >= 0 and less than array length.');
+    }
 
-    this.push = function(value) {};
-    
-    this.shift = function() {};
+    for (var i = 0; i < this.array.length-1; i++) {
 
-    this.unshift = function(value) {};
+        if (i === value) {
+            isRemoved = true;
+        }
 
-    this.remove = function(value) {};
-
-    this.isArray = function() {};
-
-    this.lengthArray = function() {};
-    
-    this.toString = function () {}
+        if(isRemoved) {
+            tempArray[i] = this.array[i+1];
+        } else {
+            tempArray[i] = this.array[i];
+        }
+    }
+    this.array = tempArray;
+    return this;
 }
 
-function ArrayList() {
+ArrayList.prototype.isArray = function() {
 
-    ListFirst.apply(this);
-
-    let array = [];
-
-    this.pop = function() {
-
-        array.length -= 1;
-
-        return this;
-    };
-
-    this.push = function(value) {
-
-        array[array.length] = value;
-
-        return this;
-    };
-        
-    this.shift = function() {
-
-        for(var i = 0; i < array.length; i++)
-        {
-            array[i] = array[i+1];
-        }
-
-        array.length -= 1;
-
-        return this;
-    };
-    
-    this.unshift = function(value) {
-
-        let tmpArray = [];
-
-        for (var i = 0; i < array.length; i++)
-        {
-            tmpArray[0] = 0;
-            tmpArray[i+1] = array[i];
-        }
-
-        tmpArray[0] = value;
-        array = tmpArray;
-        return this;
-    };
-    
-    this.remove = function(value) {
-
-        let tempArray = [];
-        let isRemoved = false;
-
-        if (value < 0 || value > array.length) {
-            throw Error('Value should be >= 0 and less than array length.');
-        }
-
-        for (var i = 0; i < array.length-1; i++) {
-
-            if (i === value) {
-                isRemoved = true;
-            }
-
-            if(isRemoved) {
-                tempArray[i] = array[i+1];
-            } else {
-                tempArray[i] = array[i];
-            }
-        }
-        array = tempArray;
-        return this;
-    };
-    
-    this.isArray = function() {
-
-        if (array.constructor === Array)
-        {
-            return true;
-        } else {
-            return false;
-        }
-    };
-    
-    this.lengthArray = function() {
-
-        let result = 0;
-
-        while(array[result] !== undefined)
-        {
-            result++;
-        }
-
-        return result;
-    };
-
-    this.toArray = function() {
-        return [...array];
-    };
-
-    this.toString = function() {
-        return `[${String(array)}]`;
+    if (this.array.constructor === Array)
+    {
+        return true;
+    } else {
+        return false;
     }
 }
 
-function ListSecond() {
-    ListFirst.apply(this);
-    
-    this.toArrayList = function() {};
-    
-    this.toLinkedList = function() {};
+ArrayList.prototype.lengthArray = function() {
 
-    this.sort = function() {};
+    let result = 0;
+
+    while(this.array[result] !== undefined)
+    {
+        result++;
+    }
+
+    return result;
 }
 
-var a = new ListSecond();
-console.log(a);
+//Linked list
+function LinkedList() {
+    ListFirst.apply(this);
+    this.head = null;
+    this.tail = null;
+    this.node = function(value, next, prev) {
+        this.value = value;
+        this.next = next;
+        this.prev = prev;
+    }
+}
 
+LinkedList.prototype = Object.create(ListFirst.prototype);
+LinkedList.prototype.constructor = LinkedList;
+
+LinkedList.prototype.pop = function() {
+
+    if (!this.tail) {
+        return null;
+     }
+ 
+    let value = this.tail.value;
+    this.tail = this.tail.prev;
+    
+    if (this.tail){
+       this.tail.next = null; 
+    } else {
+        this.head = null;
+     }
+    
+    return value;
+}
+
+LinkedList.prototype.push = function(value) {
+
+    const newNode = new Node(value, null, this.tail);
+    if (this.tail) this.tail.next = newNode;
+    else this.head = newNode;
+    this.tail = newNode;
+}
+
+LinkedList.prototype.shift = function() {
+
+    if (!this.head) return null;
+    let value = this.head.value;
+    this.head = this.head.next;
+     
+    if (this.head) this.head.prev = null;
+    else this.tail = null;
+     
+    return value;
+}
+
+LinkedList.prototype.unshift = function() {
+
+    const newNode = new Node(value, this.head, null);
+    if (this.head) this.head.prev = newNode;
+    else this.tail = newNode; 
+    this.head = newNode;
+}
+
+// 3. Создать "интерфейс" (класс) с 12 методами ListSecond (унаследовав от ListFirst и расширить)
+function ListSecond() {
+    ListFirst.apply(this);
+}
+
+ListSecond.prototype.toString = function() {};
+ListSecond.prototype.toArrayList = function() {};
+ListSecond.prototype.toLinkedList = function() {};
+ListSecond.prototype.sort = function() {};
+
+ListSecond.prototype.toString = function() {};
+ListSecond.prototype.toArrayList = function() {};
+ListSecond.prototype.toLinkedList = function() {};
+ListSecond.prototype.sort = function() {};
+
+// 4. Реализовать ArrayList & LinkedList на основании ListSecond
+function ArrayList2() {
+    ListSecond.apply(this);
+} 
+ArrayList2.prototype = Object.create(ListSecond.prototype);
+ArrayList2.prototype.constructor = ArrayList2;
+
+ArrayList2.prototype.toString = function() {
+
+    return `[${String(this.array)}]`;
+}
+
+ArrayList2.prototype.toArrayList = function() {
+
+    return [...this.array];
+}
+
+ArrayList2.prototype.sort = function() {
+    let a = function(a,b){
+        return (a-b); 
+    };
+    this.array.sort(a);
+}

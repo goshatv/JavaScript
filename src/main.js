@@ -1,13 +1,4 @@
-
-//HW : 
-// Alist, Llist - в них нужно добавить все старые функции. Нужно унаследовать . 
-// Сначала создать List, класс который содержит 8 функций без реализации.
-// От него наследуемся для Llist и Alist. А в Alist и Llist реализуем функции.
-// После этого интерфейс List расширить. В List добавить функцию sort, toArrayList, toLinkedList, toString.
-// Этот интерфейс должен наследоваться от List.
-// Интерфейс реализуем 
-
-function SuperList() {
+function ListFirst() {
 
     this.pop = function() {};
 
@@ -26,9 +17,9 @@ function SuperList() {
     this.toString = function () {}
 }
 
-function Alist() {
+function ArrayList() {
 
-    SuperList.apply(this);
+    ListFirst.apply(this);
 
     let array = [];
 
@@ -127,13 +118,79 @@ function Alist() {
     this.toString = function() {
         return `[${String(array)}]`;
     }
-
 }
 
-var listTest = new Alist();
-listTest.push(1);
-listTest.push(2);
-listTest.push(3);
-listTest.push(4);
-listTest.push(5);
-listTest.remove(2);
+function ListSecond() {
+    ListFirst.apply(this);
+    
+    this.toArrayList = function() {};
+    
+    this.toLinkedList = function() {};
+
+    this.sort = function() {};
+}
+
+var a = new ListSecond();
+console.log(a);
+
+//PROTOTYPE:
+
+function ListFirstProto() {}
+
+ListFirstProto.prototype.array = [];
+ListFirstProto.prototype.pop = function() {}
+ListFirstProto.prototype.push = function() {}
+ListFirstProto.prototype.shift = function() {}
+ListFirstProto.prototype.unshift = function() {}
+ListFirstProto.prototype.remove = function() {}
+ListFirstProto.prototype.isArray = function() {}
+ListFirstProto.prototype.lengthArray = function() {}
+ListFirstProto.prototype.toString = function() {}
+
+function AList() {
+    ListFirstProto.apply(this);
+}
+
+AList.prototype = Object.create(ListFirstProto.prototype);
+AList.prototype.constructor = AList;
+
+AList.prototype.pop = function() {
+    
+    this.array.length -= 1;
+
+    return this;
+}
+
+AList.prototype.push = function() {
+
+    array[array.length] = value;
+
+    return this;
+}
+
+AList.prototype.shift = function() {
+
+    for(var i = 0; i < array.length; i++)
+    {
+        array[i] = array[i+1];
+    }
+
+    array.length -= 1;
+
+    return this;
+}
+
+AList.prototype.unshift = function() {
+
+    let tmpArray = [];
+
+    for (var i = 0; i < array.length; i++)
+    {
+        tmpArray[0] = 0;
+        tmpArray[i+1] = array[i];
+    }
+
+    tmpArray[0] = value;
+    array = tmpArray;
+    return this;
+}

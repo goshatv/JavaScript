@@ -1,23 +1,87 @@
-body {
-    width: 100%;
+/* reset */
+body, h1, h2, h3, h4, h5, h6, p, blockquote,
+pre, dl, dd, ol, ul, fieldset, form, menu,
+select, textarea, input, button, optgroup{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+a{
+    background-color: transparent;
+}
+img, input, button{
+    border: 0;
+}
+input{
+    border-radius: 0;
+}
+input, textarea, select, button,
+a:active, a:hover{
+    outline: 0;
+}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea{
+    -webkit-appearance: none;
+}
+input[type="submit"],
+button{
+    cursor: pointer;
 }
 
+table{
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+td, th{
+    padding: 0;
+}
+sup, sub {
+  vertical-align: bottom;
+  position: relative;
+  top: -0.4em;
+}
+sub { 
+  top: 0.4em; 
+}
+/* Reset */
+
+body {
+    width: 900px;
+}
+td, th {
+    padding: 5px;
+}
 .display {
-    height: 50px;
+    height: 3em;
+    width: 67.8em;
     background-color: #2f3945;
+    padding: 120px 0px 24px 24px;
 }
 
 .wrapper {
     display: flex;
     flex-direction: row;
     background-color: #2f3945;
+    width: 69.3em;
+    padding-bottom: 25px;
+}
+
+.trygon, .math, .nums, .actions {
+    padding-top: 2%;
+    padding-left: 1.5%;
 }
 
 button {
-    width: 100%;
+    font-size: 2em;
+    line-height: 2.2em;
     background-color: #2f3945;
-    border-radius: 2px;
-    box-shadow: -1px 1px 1px 1px #000000;
+    border-radius: 5px;
+    box-shadow: -1px -1px 11px 1px #0000006b;
     border: none;
     color: rgba(255, 255, 255, 0.877);
     text-shadow:-1px 1px 2px #000000;
@@ -29,8 +93,34 @@ button {
 
 .displayinput {
     background-color: #fff;
-    border-radius: 2px;
+    border-radius: 5px;
     border:none;
-    width: 22.7%;
     vertical-align: bottom;
+    font-size: 3.5em;
+    width: 98%;
+}
+.trygon button {
+    width: 3em;
+}
+.math button {
+    width: 3.7em;
+}
+.nums {
+    /* width: 2em; */
+}
+.actions button, .nums button{
+    width: 2.5em;
+}
+.res {
+    height: 7.2em;
+}
+
+.calc {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:active {
+    box-shadow: -2px -2px 14px 5px #0000006b;
 }

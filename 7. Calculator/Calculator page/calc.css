@@ -1,0 +1,36 @@
+body {
+    width: 100%;
+}
+
+.display {
+    height: 50px;
+    background-color: #2f3945;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    background-color: #2f3945;
+}
+
+button {
+    width: 100%;
+    background-color: #2f3945;
+    border-radius: 2px;
+    box-shadow: -1px 1px 1px 1px #000000;
+    border: none;
+    color: rgba(255, 255, 255, 0.877);
+    text-shadow:-1px 1px 2px #000000;
+}
+
+.math button{
+    background-color: rgb(54, 64, 79);
+}
+
+.displayinput {
+    background-color: #fff;
+    border-radius: 2px;
+    border:none;
+    width: 22.7%;
+    vertical-align: bottom;
+}

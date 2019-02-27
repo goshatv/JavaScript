@@ -1,0 +1,51 @@
+html {
+    width: 100vh;
+    height: 95vh;
+}
+
+.content {
+    background-color: rgb(21, 22, 39);
+    width: 100vh;
+    height: 95vh;
+    margin: auto;
+    margin-left: 50vh;
+    font-size: 17px;
+    border-radius: 15px;
+}
+
+.contentForm {
+    background-color: rgb(51, 50, 68);
+    width: 60vh;
+    height: 75vh;
+    padding: 5%;
+    margin: auto;
+}
+
+.welcome {
+    color: aliceblue;
+    text-align: center;
+    text-shadow: 1px 1px 1px #000000;
+
+}
+
+.contentForm p {
+    text-align: left;
+    color: aliceblue;
+}
+
+input {
+    width: 50%;
+    height: 6%;
+    border: #000000 2px 2px 2px;
+}
+
+
+input[type=submit] {
+    widows: 50%;
+    height: 8%;
+    background: rgb(90, 148, 133);
+    border: none;
+    border-radius: 4px;
+    color: aliceblue;
+    font-size: 17px; 
+}

@@ -59,11 +59,11 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-canvas.onclick = () => {
+canvas.onclick = (e) => {
     var size = random(20, 30);
     var ball = new Ball(
-        random(0 + size, width - size),
-        random(0 + size, height - size),
+        e.layerX,
+        e.layerY,
         random(-10, 10),
         random(-10, 10),
         'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
